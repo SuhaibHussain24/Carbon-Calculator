@@ -12,9 +12,10 @@ interface MainProps {
     results: EmissionResults | null;
     formData: FormData | null;
     onCalculationComplete: (data: FormData, results: EmissionResults) => void;
+    onMenuToggle: () => void;
 }
 
-export const Main: React.FC<MainProps> = ({ currentPage, onNavigate, results, formData, onCalculationComplete }) => {
+export const Main: React.FC<MainProps> = ({ currentPage, onNavigate, results, formData, onCalculationComplete, onMenuToggle }) => {
     const { user } = useAuth();
     
     const renderContent = () => {
@@ -37,6 +38,9 @@ export const Main: React.FC<MainProps> = ({ currentPage, onNavigate, results, fo
 
     return (
         <main className="main-content">
+            <button className="menu-toggle" onClick={onMenuToggle} aria-label="Open menu">
+                <span className="material-icons">menu</span>
+            </button>
             {renderContent()}
         </main>
     );

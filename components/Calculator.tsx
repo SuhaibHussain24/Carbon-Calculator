@@ -157,7 +157,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculationComplete })
                 )}
             </div>
 
-            <div className="button-group" style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between' }}>
+            <div className="button-group form-navigation" style={{ marginTop: '2rem' }}>
                 {currentStep > 0 ? (
                     <button onClick={handleBack} className="btn btn-secondary">Back</button>
                 ): <div />}

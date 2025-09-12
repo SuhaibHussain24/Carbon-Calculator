@@ -269,10 +269,16 @@ input:focus, select:focus {
 .sidebar-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 1.5rem;
+}
+.sidebar-header-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 .sidebar-header .logo-icon {
     font-size: 1.8rem;
@@ -515,11 +521,132 @@ input:focus, select:focus {
 .dashboard-actions {
     justify-content: center;
 }
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* --- Mobile Header & Navigation --- */
+.menu-toggle {
+    display: none; /* Hidden on desktop */
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 999;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+}
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+}
+.sidebar-close-btn {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: fixed;
+        height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        width: 280px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-right: none;
+    }
+    .app-container.is-sidebar-open .sidebar {
+        transform: translateX(0);
+    }
+    .app-container.is-sidebar-open .sidebar-overlay {
+        display: block;
+    }
+    .menu-toggle {
+        display: flex;
+    }
+    .main-content {
+        padding-top: 5rem; /* Space for menu button */
+    }
+    .sidebar-close-btn {
+        display: inline-flex;
+        color: var(--text-secondary);
+        padding: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard {
         grid-template-columns: 1fr;
     }
     .chart-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-content {
+        padding: 4rem 1.5rem 1.5rem 1.5rem;
+    }
+    .auth-card {
+        padding: 2.5rem 1.5rem;
+    }
+    .results-header h1 {
+        font-size: 1.7rem;
+    }
+     .total-emissions p {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 2rem 1rem;
+    }
+    .form-title {
+        font-size: 1.3rem;
+    }
+    .button-group {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .button-group .btn {
+        width: 100%;
+    }
+    .form-navigation {
+        flex-direction: column-reverse;
+    }
+    .form-navigation > .btn {
+        width: 100%;
+    }
+    .form-navigation .btn-secondary {
+        background-color: transparent;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+    }
+    .form-navigation > div {
+        display: none; /* Hide the spacer div */
+    }
+    .dashboard-actions {
         flex-direction: column;
     }
 }

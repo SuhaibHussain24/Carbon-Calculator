@@ -4,9 +4,10 @@ import { useAuth } from '../hooks/useAuth';
 interface SidebarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
+  onClose: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate, onClose }) => {
     const { user, logout } = useAuth();
 
     const NavItem = ({ page, name, icon }: { page: string, name: string, icon: string }) => (
@@ -21,8 +22,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
     return (
         <aside className="sidebar">
             <div className="sidebar-header">
-                 <span className="logo-icon">🌍</span>
-                 <h1>CarbonCalc</h1>
+                 <div className="sidebar-header-title">
+                    <span className="logo-icon">🌍</span>
+                    <h1>CarbonCalc</h1>
+                 </div>
+                 <button className="sidebar-close-btn" onClick={onClose} aria-label="Close menu">
+                    <span className="material-icons">close</span>
+                 </button>
             </div>
             <nav className="sidebar-nav">
                 <ul>

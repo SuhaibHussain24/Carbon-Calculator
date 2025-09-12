@@ -16,6 +16,7 @@ function App() {
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [results, setResults] = useState<EmissionResults | null>(null);
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   
   useEffect(() => {
     if (user) {
@@ -44,6 +45,7 @@ function App() {
         }
       }
       setCurrentPage(page);
+      setSidebarOpen(false); // Close sidebar on navigation
   };
   
   const handleCalculationComplete = (data: FormData, calcResults: EmissionResults) => {
@@ -88,14 +90,20 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
+    <div className={`app-container ${isSidebarOpen ? 'is-sidebar-open' : ''}`}>
+      {isSidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>}
+      <Sidebar 
+        currentPage={currentPage} 
+        onNavigate={handleNavigate}
+        onClose={() => setSidebarOpen(false)}
+      />
       <Main 
         currentPage={currentPage} 
         onNavigate={handleNavigate}
         results={results}
         formData={formData}
         onCalculationComplete={handleCalculationComplete}
+        onMenuToggle={() => setSidebarOpen(!isSidebarOpen)}
       />
     </div>
   );
